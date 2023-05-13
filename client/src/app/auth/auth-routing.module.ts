@@ -13,12 +13,6 @@ const routes:Routes = [
   imports: [
     RouterModule.forChild(routes)
   ],
-<<<<<<< HEAD
   exports:[RouterModule]
-=======
-  exports:[
-    RouterModule
-  ]
->>>>>>> ce84c7ff68cf0747d9ee435a883a56686be2dbbd
 })
 export class AuthRoutingModule { }
