@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateProductDto, ProductModel, UpdateProductDto } from 'src/app/models/product.model';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductHttpService } from 'src/app/services/product.service'
 
 @Component({
   selector: 'app-product',
@@ -9,47 +9,49 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductsComponent implements OnInit {
    products:ProductModel[] = [];
-
    selectedProduct: UpdateProductDto = {title:'', price:0, description:''};
 
-  constructor(private productService:ProductService) {
+  constructor(private productHttpService:ProductHttpService) {
    this.editProduct();
   }
   
   ngOnInit(): void {
     this.getProducts();
-    //this.getProduct();
+    //this.getProduct(57);
     //this.createProduct();
     //this.updateProduct();
-    //this.deleteProduct();
+    //this.deleteProduct(204);
   }
 
   getProducts(){
     const url = "https://api.escuelajs.co/api/v1/products";
-    this.productService.getAll().subscribe(
+    this.productHttpService.getAll().subscribe(
       response =>{
         this.products = response;
         console.log(response);
       }
     )
   }
+
   getProduct(id: ProductModel['id'] ){
     const url = "https://api.escuelajs.co/api/v1/products/id";
-    return this.productService.getOne(id).subscribe(
+    return this.productHttpService.getOne(id).subscribe(
       response =>{
         console.log(response);
       }
     )
   }
+
   createProduct(product: CreateProductDto){
-    this.productService.store(product).subscribe(
-      response =>{
+    this.productHttpService.store(product).subscribe(
+      response => {
         console.log(response);
       }
     )
   }
-  updateProduct(id: ProductModel['id'], product:UpdateProductDto){
-    this.productService.update(id, product).subscribe(
+
+  updateProduct(id: ProductModel['id'], product: UpdateProductDto){
+    this.productHttpService.update(id, product).subscribe(
       response =>{
         console.log(response);
       }
@@ -60,12 +62,11 @@ export class ProductsComponent implements OnInit {
   }
   
   deleteProduct(id: ProductModel['id']){
-    this.productService.destroy(id).subscribe(
+    this.productHttpService.destroy(id).subscribe(
       response =>{
-        this.products = this.products.filter(product => product.id != id); 
+        this.products = this.products.filter(product => product.id != id);
         console.log(response);
       }
     )
   }
 }
-

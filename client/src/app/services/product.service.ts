@@ -6,14 +6,14 @@ import { CreateProductDto, ProductModel, UpdateProductDto } from '../models/prod
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductHttpService {
 
   readonly API_URL: string = "https://api.escuelajs.co/api/v1/products";
 
   constructor(private httpClient: HttpClient) { }
 
   getAll():Observable<ProductModel[]> {
-    const url = `${this.API_URL}`; 
+    const url = `${this.API_URL}`;
     return this.httpClient.get<ProductModel[]>(url);
   }
   getOne(id: ProductModel['id']):Observable<ProductModel> {
@@ -21,7 +21,7 @@ export class ProductService {
     return this.httpClient.get<ProductModel>(url);
   }
   store(product: CreateProductDto):Observable<ProductModel> {
-    const url = `${this.API_URL}`; 
+    const url = `${this.API_URL}`;
     return this.httpClient.post<ProductModel>(url, product)
   }
 
@@ -37,4 +37,3 @@ export class ProductService {
       );
   }
 }
-
