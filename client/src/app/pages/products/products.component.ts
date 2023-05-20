@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
   constructor(private productHttpService:ProductHttpService) {
    this.editProduct();
   }
-  
+
   ngOnInit(): void {
     this.getProducts();
     //this.getProduct(57);
@@ -60,7 +60,7 @@ export class ProductsComponent implements OnInit {
   editProduct(){
     this.selectedProduct = {title:'', price:0, description:''};
   }
-  
+
   deleteProduct(id: ProductModel['id']){
     this.productHttpService.destroy(id).subscribe(
       response =>{
