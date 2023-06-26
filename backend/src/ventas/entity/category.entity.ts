@@ -1,8 +1,7 @@
-//relacion con productos: clases
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { ProductEntity } from "./product.model";
-@Entity('categories', {schema:'ventas'})
+import { ProductEntity } from "./product.entity";
 
+@Entity('categories', {schema:'ventas'})
 
 export class CategoryEntity{
     @PrimaryGeneratedColumn('uuid')
@@ -26,6 +25,9 @@ export class CategoryEntity{
         nullable: true,
     })
     delete: Date;
+    
+    @OneToMany(() => ProductEntity, product => product.category)
+    product: ProductEntity;
 
     @Column('varchar', {
         name: 'name',
@@ -42,6 +44,4 @@ export class CategoryEntity{
     }
     )
     description: string;
-    @OneToMany(() => ProductEntity, product => product.category)
-    productos: ProductEntity[];
 }

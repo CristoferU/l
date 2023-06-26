@@ -14,5 +14,6 @@ async function bootstrap() {
   SwaggerModule.setup('document', app, document);
 
   await app.listen(3000);
+  console.log("servidor en el puerto http://localhost:3000")
 }
 bootstrap();

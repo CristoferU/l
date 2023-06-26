@@ -6,13 +6,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { CategoryEntity } from './category.model';
-//import * as bcrypt from 'bcrypt';
-
+import { ManyToOne } from 'typeorm/decorator/relations/ManyToOne';
+import { CategoryEntity } from './category.entity';
 
 @Entity('products', { schema: 'ventas' })
 export class ProductEntity {
@@ -37,6 +35,9 @@ export class ProductEntity {
     nullable: true,
   })
   delete: Date;
+
+  @ManyToOne(() => CategoryEntity, category => category.product)
+  category: CategoryEntity;
 
   @Column('varchar', {
     name: 'title',
@@ -71,37 +72,32 @@ export class ProductEntity {
     nullable: false,
     comment: 'categoria a la que pertenece el producto',
   })
-  category: CategoryEntity;
-  email: any;
-  password: any;
+  categorys: CategoryEntity;
+  /*
 
   @BeforeInsert()
   @BeforeUpdate()
-  getTitle(){
-    if(!this.title){
-    return;
+  getTitle() {
+    if (!this.title) {
+      return;
+    }
+    this.title = this.title.toUpperCase();
   }
-  this.title = this.title.toUpperCase();
-}
-/*
-getEmail() {
-  if (!this.email) {
-    return;
-  }
-  this.email = this.email.toLowerCase().trim();
-}
 
-  async getPassword(){
-  if(!this.password){
-    return;
+  getEmail() {
+    if (!this.email) {
+      return;
+    }
+    this.email = this.email.toLowerCase().trim();
   }
-  this.password = await bcrypt.hash(this.password, 12);
-}
-@ManyToOne(() => CategoryEntity, category => category.productos)
-  categoria: CategoryEntity;
+
+  async getPassword() {
+    if (!this.password) {
+      return;
+    }
+    this.password = await bcrypt.hash(this.password, 12);
+  }
+
 */
-
 }
-
-
 

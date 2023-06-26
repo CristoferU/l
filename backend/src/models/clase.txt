@@ -1,0 +1,30 @@
+class {
+@ManyToOne(() => AuthorEntity, author => author.libros)
+    author: AuthorEntity;
+}
+
+class role{
+    @OneToOne(() => UsuarioEntity, Usuario => usuario.role)
+    @joinColum()
+    Usuario: UsuarioEntity;
+    
+}
+class usuario {
+    @OneToOne(() => RoleEntity, Role => role.usuario)
+    @joinColum()
+    role: RoleEntity;
+}
+
+
+
+class role{
+    @ManyToMany(() => UsuarioEntity, Usuario => product.role)
+    @joinColum
+    Usuario: UsuarioEntity;
+    
+}
+class usuario {
+    @ManyToMany(() => RoleEntity, Role => product.usuario)
+    @joinColum
+    role: RoleEntity;
+}
